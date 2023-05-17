@@ -72,7 +72,8 @@
    "
   [{:keys [container-style top-card bottom-card]} child-1 child-2]
   [blur/ios-view
-   {:style (merge container-style style/outer-container)}
+   {:style       (merge container-style style/outer-container)
+    :blur-radius 20}
    [card
     (merge {:gap   4
             :top?  true

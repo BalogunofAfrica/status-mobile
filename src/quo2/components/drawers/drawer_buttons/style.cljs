@@ -12,7 +12,6 @@
    :padding-horizontal      20
    :border-top-left-radius  20
    :border-top-right-radius 20
-   :backdrop-filter         "blur(20px)"
    :background-color        (if platform/ios?
                               colors/neutral-80-opa-80-blur
                               colors/neutral-80)})
@@ -27,7 +26,6 @@
    :padding-horizontal      20
    :border-top-left-radius  20
    :border-top-right-radius 20
-   :backdrop-filter         "blur(20px)"
    :background-color        colors/white-opa-5})
 
 (def bottom-container
