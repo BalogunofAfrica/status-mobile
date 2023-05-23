@@ -18,6 +18,7 @@ export function dynamicProgressBarWidth(staticProgressBarWidth, progress) {
 }
 
 export function carouselLeftPosition(windowWidth, progress) {
+      console.log('carouselLeftPosition: progress.value: ', progress);
   return useDerivedValue(
     function () {
       'worklet'

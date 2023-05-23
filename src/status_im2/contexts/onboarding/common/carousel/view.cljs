@@ -5,7 +5,8 @@
             [react-native.navigation :as navigation]
             [react-native.reanimated :as reanimated]
             [status-im2.contexts.onboarding.common.carousel.style :as style]
-            [status-im2.contexts.onboarding.common.carousel.animation :as animation]))
+            [status-im2.contexts.onboarding.common.carousel.animation :as animation]
+            [react-native.gesture :as gesture]))
 
 (defn header-text-view
   [index window-width header-text]
@@ -48,6 +49,25 @@
       {:static?            false
        :progress-bar-width progress-bar-width}]]))
 
+;; Implement dispatching of progress events
+;; (defn carousel-progress-end
+;;   [progress]
+;;   (rf/dispatch [:onboarding/carousel-progress-end progress])
+;;   (rf/dispatch [:onboarding/carousel-progress progress]))
+
+
+(defn drag-gesture
+  [progress animate? window-width]
+  (->
+   (gesture/gesture-pan)
+   (gesture/enabled true)
+   (gesture/max-pointers 1)
+  ;;  Update the progress value on drag with help of reanimated
+   (gesture/on-finalize (fn [e] (animation/carousel-left-position window-width animate? (update progress :value :value + 25))))))
+  ;;  (gesture/on-end (fn [e] (rf/dispatch [carousel-progress-end (-> e :nativeEvent :translationX)])))))
+  ;;  (gesture/on-end (fn [e] (rf/dispatch [:onboarding/carousel-progress-end (-> e :nativeEvent :translationX)])))
+  ;;  (gesture/on-update (fn [e] (rf/dispatch [:onboarding/carousel-progress (-> e :nativeEvent :translationX)])))))
+
 (defn f-view
   [{:keys [animate? progress header-text background header-background]}]
   (let [window-width       (rf/sub [:dimensions/window-width])
@@ -56,16 +76,18 @@
         carousel-left      (animation/carousel-left-position window-width animate? progress)
         container-view     (if animate? reanimated/view rn/view)]
     [:<>
-     [container-view {:style (style/carousel-container carousel-left animate?)}
-      (for [index (range 2)]
-        ^{:key index}
-        [content-view
-         {:window-width      window-width
-          :status-bar-height status-bar-height
-          :index             index
-          :header-text       header-text
-          :header-background header-background}
-         (when background background)])]
+     [gesture/gesture-detector
+      {:gesture (drag-gesture progress animate? window-width)}
+      [container-view {:style (style/carousel-container carousel-left animate?)}
+       (for [index (range 2)]
+         ^{:key index}
+         [content-view
+          {:window-width      window-width
+           :status-bar-height status-bar-height
+           :index             index
+           :header-text       header-text
+           :header-background header-background}
+          (when background background)])]]
      [rn/view
       {:style (style/progress-bar-container
                progress-bar-width

@@ -11,6 +11,7 @@
             [status-im2.contexts.onboarding.common.background.style :as style]
             [react-native.reanimated :as reanimated]
             [status-im2.contexts.onboarding.common.carousel.animation :as carousel.animation]))
+            ;; [status-im2.contexts.activity-center.notification.common.view :as common]))
 
 (def header-text
   [{:text     (i18n/label :t/join-decentralised-communities)

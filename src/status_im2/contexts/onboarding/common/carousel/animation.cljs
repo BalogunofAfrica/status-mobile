@@ -40,6 +40,12 @@
      (animate-progress @progress @paused))
    [animate?]))
 
+(defn update-progress
+  [progress paused]
+  (fn [new-progress]
+    (reanimated/set-shared-value progress new-progress)
+    (reanimated/set-shared-value paused false)))
+
 (defn cleanup-animation
   [progress paused]
   (fn []
