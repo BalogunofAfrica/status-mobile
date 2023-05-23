@@ -110,7 +110,7 @@
                                         :content
                                         (fn []
                                           [method-menu/view on-change-profile-pic])}]))
-              :image-picker-props  {:profile-picture @profile-pic
+              :image-picker-props  {:profile-picture (when @profile-pic {:uri @profile-pic})
                                     :full-name       @full-name}
               :title-input-props   {:default-value  @full-name
                                     :max-length     c/profile-name-max-length
