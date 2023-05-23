@@ -123,8 +123,9 @@
                :style style/info-message}
               @validation-msg])
            [quo/text
-            {:size  :paragraph-2
-             :style style/color-title}
+            {:size   :paragraph-2
+             :weight :medium
+             :style  style/color-title}
             (i18n/label :t/accent-colour)]
            [quo/color-picker
             {:blur?             true

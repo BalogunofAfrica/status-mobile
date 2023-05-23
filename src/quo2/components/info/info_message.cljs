@@ -34,15 +34,15 @@
         text-color      (or text-color (get-color type))
         icon-color      (or icon-color text-color)]
     [rn/view
-     {:style (merge {:flex-direction :row}
+     {:style (merge {:flex-direction :row
+                     :align-items    :center}
                     style)}
      [quo2.icons/icon icon
-      {:color           icon-color
-       :no-color        no-icon-color?
-       :size            icon-size
-       :container-style {:margin-top icon-margin-top}}]
+      {:color    icon-color
+       :no-color no-icon-color?
+       :size     icon-size}]
      [text/text
       {:size   size
        :weight weight
        :style  {:color             text-color
-                :margin-horizontal 8}} message]]))
+                :margin-horizontal 4}} message]]))
