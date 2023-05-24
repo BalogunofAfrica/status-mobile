@@ -33,7 +33,7 @@
 
 (defn use-initialize-animation
   [progress paused animate?]
-  (reset! progress (reanimated/use-shared-value 50))
+  (reset! progress (reanimated/use-shared-value 0))
   (reset! paused (reanimated/use-shared-value false))
   (rn/use-effect
    (fn []
@@ -43,7 +43,7 @@
 (defn update-progress
   [progress]
   (fn []
-    (reset! progress (reanimated/use-shared-value 75))))
+    (reanimated/set-shared-value @progress 75)))
 
 (defn cleanup-animation
   [progress paused]

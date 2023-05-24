@@ -63,7 +63,7 @@
    (gesture/enabled true)
    (gesture/max-pointers 1)
   ;;  Update the progress value on drag with help of reanimated
-   (gesture/on-finalize (fn [e] (animation/update-progress progress)))))
+   (gesture/on-finalize (animation/update-progress progress))))
   ;;  (gesture/on-finalize (fn [e] (println "on-finalize" e)))))
   ;;  (gesture/on-end (fn [e] (rf/dispatch [carousel-progress-end (-> e :nativeEvent :translationX)])))))
   ;;  (gesture/on-end (fn [e] (rf/dispatch [:onboarding/carousel-progress-end (-> e :nativeEvent :translationX)])))
@@ -102,4 +102,3 @@
         :progress           progress}]]]))
 
 (defn view [props] [:f> f-view props])
-
