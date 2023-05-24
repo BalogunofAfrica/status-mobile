@@ -55,9 +55,7 @@ pipeline {
     }
     stage('JSBundle') {
       steps {
-        script {
-        ios.jsbundle()
-        }
+        script { ios.jsbundle() }
       }
     }
     stage('Bundle') {
