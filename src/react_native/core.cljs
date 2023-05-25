@@ -90,6 +90,8 @@
 
 (def use-ref react/useRef)
 
+(def forward-ref react/forwardRef)
+
 (defn current-ref
   [ref]
   (oops/oget ref "current"))

@@ -17,7 +17,8 @@
     [quo/text
      {:size   :heading-1
       :weight :semi-bold
-      :style  {:color colors/white}} (i18n/label :t/generating-keys)]]])
+      :style  {:color colors/white}} 
+     (i18n/label :t/generating-keys)]]])
 
 (defn generating-keys
   []

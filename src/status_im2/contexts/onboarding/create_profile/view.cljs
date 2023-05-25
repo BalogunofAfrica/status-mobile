@@ -56,7 +56,7 @@
      children]))
 
 (defn- f-page
-  [{:keys [onboarding-profile-data navigation-bar-top]}]
+  [{:keys [onboarding-profile-data navigation-bar-top next]}]
   (let [{:keys [image-path display-name color]} onboarding-profile-data
         full-name                               (reagent/atom display-name)
         keyboard-shown?                         (reagent/atom false)
@@ -73,11 +73,11 @@
        (let [will-show-listener (oops/ocall rn/keyboard
                                             "addListener"
                                             "keyboardWillShow"
-                                            #(swap! keyboard-shown? (fn [] true)))
+                                            #(swap! keyboard-shown? (fn [_] true)))
              will-hide-listener (oops/ocall rn/keyboard
                                             "addListener"
                                             "keyboardWillHide"
-                                            #(swap! keyboard-shown? (fn [] false)))]
+                                            #(swap! keyboard-shown? (fn [_] false)))]
          (fn []
            (fn []
              (oops/ocall will-show-listener "remove")
@@ -141,17 +141,20 @@
                                         (rf/dispatch [:onboarding-2/profile-data-set
                                                       {:image-path   @profile-pic
                                                        :display-name @full-name
-                                                       :color        @custom-color}]))
+                                                       :color        @custom-color}])
+                                        (next))
            :style                     style/continue-button
            :disabled                  (or (not (seq @full-name)) @validation-msg)}
           (i18n/label :t/continue)]]]])))
 
 (defn create-profile
-  []
+  [props]
   (let [{:keys [top]}           (safe-area/get-insets)
         onboarding-profile-data (rf/sub [:onboarding-2/profile])]
     [:<>
-     [background/view true]
+    ;;  [background/view true]
      [:f> f-page
-      {:navigation-bar-top      top
+      {:next (:next (.-current (:wizard-ref props)))
+       :navigation-bar-top      top
        :onboarding-profile-data onboarding-profile-data}]]))
+

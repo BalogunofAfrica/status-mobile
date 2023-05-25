@@ -4,7 +4,7 @@
             [utils.re-frame :as rf]))
 
 (defn navigation-bar
-  [{:keys [top right-section-buttons disable-back-button?]}]
+  [{:keys [top right-section-buttons disable-back-button? prev]}]
   [rn/view
    {:style {:height     56
             :margin-top top}}
@@ -14,6 +14,8 @@
      :left-section          {:type                :blur-bg
                              :icon                :i/arrow-left
                              :icon-override-theme :dark
-                             :on-press            (when-not disable-back-button?
-                                                    #(rf/dispatch [:navigate-back]))}
+                             :on-press            (if prev
+                                                    prev
+                                                    (when-not disable-back-button?
+                                                    #(rf/dispatch [:navigate-back])))}
      :right-section-buttons right-section-buttons}]])

@@ -14,6 +14,7 @@
                              Easing
                              Keyframe
                              cancelAnimation
+                             FadeInLeft
                              SlideInUp
                              SlideOutUp
                              LinearTransition
@@ -29,6 +30,7 @@
 (def slide-in-up-animation SlideInUp)
 (def slide-out-up-animation SlideOutUp)
 (def linear-transition LinearTransition)
+(def fade-in-left FadeInLeft)
 
 ;; Animated Components
 (def create-animated-component (comp reagent/adapt-react-class (.-createAnimatedComponent reanimated)))

@@ -33,7 +33,11 @@
     [status-im2.contexts.syncing.setup-syncing.view :as settings-setup-syncing]
     [status-im2.contexts.share.view :as share]
     [status-im2.contexts.onboarding.syncing.results.view :as syncing-results]
-    [status-im2.contexts.onboarding.syncing.progress.view :as syncing-devices]))
+    [status-im2.contexts.onboarding.syncing.progress.view :as syncing-devices]
+    [status-im2.contexts.onboarding.wizard.onboarding-walkthrough :as onboarding-walkthrough] 
+    [status-im2.contexts.onboarding.wizard.view :as wizard]
+
+    ))
 
 (defn screens
   []
@@ -112,7 +116,11 @@
 
     {:name      :create-profile
      :options   {:layout options/onboarding-layout}
-     :component create-profile/create-profile}
+     :component wizard/view}
+    
+    {:name      :onboarding-walkthrough-wizard
+     :options   {:layout options/onboarding-layout}
+     :component onboarding-walkthrough/view}
 
     {:name      :create-profile-password
      :options   {:insets {:top false}

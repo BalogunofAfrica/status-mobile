@@ -21,8 +21,9 @@
     :sub-text (i18n/label :t/emojihash-description)}])
 
 (defn f-view
-  []
-  (let [progress             (atom nil)
+  [props]
+  (let [next (:next (.-current (:wizard-ref props)))
+        progress             (atom nil)
         paused               (atom nil)
         {:keys [emoji-hash display-name compressed-key
                 public-key]} (rf/sub [:multiaccount])
@@ -53,7 +54,7 @@
          :card-style          style/card-style}]
        [quo/button
         {:accessibility-label       :skip-identifiers
-         :on-press                  #(rf/dispatch [:navigate-to :enable-notifications])
+         :on-press                  next ;#(rf/dispatch [:navigate-to :enable-notifications])
          :override-background-color colors/white-opa-5
          :style                     style/button}
         (i18n/label :t/skip)]]]]))

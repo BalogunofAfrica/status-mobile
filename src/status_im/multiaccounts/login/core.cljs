@@ -534,7 +534,7 @@
               (multiaccounts/switch-preview-privacy-mode-flag)
               (link-preview/request-link-preview-whitelist)
               (logging/set-log-level (:log-level multiaccount))
-              (navigation/init-root :enable-notifications))))
+              (navigation/init-root :onboarding-walkthrough-wizard))))
 
 (defn- keycard-setup?
   [cofx]

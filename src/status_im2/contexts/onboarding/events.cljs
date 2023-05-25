@@ -1,16 +1,16 @@
 (ns status-im2.contexts.onboarding.events
   (:require
-    [clojure.string :as string]
-    [native-module.core :as native-module]
-    [re-frame.core :as re-frame]
-    [status-im.ethereum.core :as ethereum]
-    [status-im.utils.types :as types]
-    [status-im2.config :as config]
-    [status-im2.constants :as constants]
-    [taoensso.timbre :as log]
-    [utils.i18n :as i18n]
-    [utils.re-frame :as rf]
-    [utils.security.core :as security]))
+   [clojure.string :as string]
+   [native-module.core :as native-module]
+   [re-frame.core :as re-frame]
+   [status-im.ethereum.core :as ethereum]
+   [status-im.utils.types :as types]
+   [status-im2.config :as config]
+   [status-im2.constants :as constants]
+   [taoensso.timbre :as log]
+   [utils.i18n :as i18n]
+   [utils.re-frame :as rf]
+   [utils.security.core :as security]))
 
 (re-frame/reg-fx
  :multiaccount/create-account-and-login
@@ -36,8 +36,7 @@
 (rf/defn profile-data-set
   {:events [:onboarding-2/profile-data-set]}
   [{:keys [db]} onboarding-data]
-  {:db       (update db :onboarding-2/profile merge onboarding-data)
-   :dispatch [:navigate-to :create-profile-password]})
+  {:db       (update db :onboarding-2/profile merge onboarding-data)})
 
 (rf/defn enable-biometrics
   {:events [:onboarding-2/enable-biometrics]}
@@ -129,7 +128,7 @@
   {:db       (-> db
                  (assoc-in [:onboarding-2/profile :password] password)
                  (assoc-in [:onboarding-2/profile :auth-method] constants/auth-method-password))
-   :dispatch [:navigate-to :enable-biometrics]})
+  })
 
 (rf/defn seed-phrase-entered
   {:events [:onboarding-2/seed-phrase-entered]}
@@ -172,7 +171,7 @@
                             constants/auth-method-biometric
                             (get-in db [:onboarding-2/profile :auth-method]))]
 
-    (cond-> {:dispatch [:navigate-to :identifiers]}
+    (cond-> {:dispatch [:navigate-to :onboarding-walkthrough-wizard]}
       biometric-enabled?
       (assoc :biometric/enable-and-save-password
              {:key-uid         key-uid
