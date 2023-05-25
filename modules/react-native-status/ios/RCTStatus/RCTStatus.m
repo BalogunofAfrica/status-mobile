@@ -619,7 +619,7 @@ RCT_EXPORT_METHOD(login2:(NSString *)request) {
 #if DEBUG
     NSLog(@"Login2() method called");
 #endif
-    NSString *result = StatusgoLoginWithConfig(request);
+    NSString *result = StatusgoLogin2(request);
     NSLog(@"%@", result);
 }
 
