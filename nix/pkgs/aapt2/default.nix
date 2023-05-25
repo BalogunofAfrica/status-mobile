@@ -5,7 +5,7 @@
 { lib, stdenv, pkgs, fetchurl }:
 
 let
-  inherit (lib) getAttr optionalString;
+  inherit (lib) getAttr;
   inherit (stdenv) isLinux isDarwin;
 
   pname = "aapt2";
@@ -50,8 +50,8 @@ in stdenv.mkDerivation {
   inherit pname version;
 
   srcs = with urls; [ jar sha pom ];
-  # patchPhase and installPhase are not neede on osx platform
-  phases = ["unpackPhase" "patchPhase" "installPhase"];
+  # patchelf is Linux specific and won't work on Darwin Platform
+  phases = if isDarwin then ["unpackPhase"] else ["unpackPhase" "patchPhase" "installPhase"];
   buildInputs = with pkgs; [ zip unzip patchelf ];
 
   unpackPhase = ''
@@ -66,13 +66,13 @@ in stdenv.mkDerivation {
 
   # On Linux, we need to patch the interpreter in Java packages
   # that contain native executables to use Nix's interpreter instead.
-  patchPhase = optionalString isLinux ''
+  patchPhase = ''
     # Patch executables from maven dependency to use Nix's interpreter
     patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $tmpDir/aapt2
   '';
 
   # Rebuild the .jar file with patched binaries
-  installPhase = optionalString isLinux ''
+  installPhase = ''
     pushd $tmpDir > /dev/null
     chmod u+w $out/${filenames.jar}
     zip -fr $out/${filenames.jar}
