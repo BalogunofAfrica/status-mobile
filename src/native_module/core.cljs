@@ -82,6 +82,15 @@
      key-uid
      #(.loginWithConfig ^js (status) account-data hashed-password config))))
 
+(defn login-2
+  "NOTE: beware, the password has to be sha3 hashed"
+  [{:keys [keyUid] :as request}]
+  (log/debug "[native-module] loginWithConfig")
+  (clear-web-data)
+  (init-keystore
+   keyUid
+   #(.login2 ^js (status) request)))
+
 (defn create-account-and-login
   [request]
   (.createAccountAndLogin ^js (status) (types/clj->json request)))

@@ -415,6 +415,17 @@ class StatusModule extends ReactContextBaseJavaModule implements LifecycleEventL
     }
 
     @ReactMethod
+    public void login2(final String request) {
+        Log.d(TAG, "login2");
+        String result = Statusgo.login2(request)
+        if (result.startsWith("{\"error\":\"\"")) {
+            Log.d(TAG, "login2 result: " + result);
+        } else {
+            Log.e(TAG, "login2 failed: " + result);
+        }
+    }
+
+    @ReactMethod
     public void exportUnencryptedDatabase(final String accountData, final String password, final Callback callback) {
         Log.d(TAG, "login");
 

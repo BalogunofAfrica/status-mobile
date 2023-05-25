@@ -3,6 +3,7 @@
     [clojure.string :as string]
     [clojure.set :as set]
     [re-frame.core :as re-frame]
+    [status-im2.config :as config]
     [status-im.async-storage.core :as async-storage]
     [status-im.communities.core :as communities]
     [status-im.data-store.chats :as data-store.chats]
@@ -58,7 +59,17 @@
 (re-frame/reg-fx
  ::login
  (fn [[key-uid account-data hashed-password]]
-   (native-module/login-with-config key-uid account-data hashed-password node/login-node-config)))
+   (native-module/login-2 {:keyUid                      key-uid
+                           :password                    hashed-password
+                           :openseaAPIKey               config/opensea-api-key
+
+                           :poktToken                   config/POKT_TOKEN
+                           :infuraToken                 config/INFURA_TOKEN
+
+                           :alchemyOptimismMainnetToken config/ALCHEMY_OPTIMISM_MAINNET_TOKEN
+                           :alchemyOptimismGoerliToken  config/ALCHEMY_OPTIMISM_GOERLI_TOKEN
+                           :alchemyArbitrumMainnetToken config/ALCHEMY_ARBITRUM_MAINNET_TOKEN
+                           :alchemyArbitrumGoerliToken  config/ALCHEMY_ARBITRUM_GOERLI_TOKEN})))
 
 (re-frame/reg-fx
  ::export-db
