@@ -3,7 +3,6 @@
     [clojure.string :as string]
     [clojure.set :as set]
     [re-frame.core :as re-frame]
-    [status-im2.config :as config]
     [status-im.async-storage.core :as async-storage]
     [status-im.communities.core :as communities]
     [status-im.data-store.chats :as data-store.chats]
@@ -22,7 +21,6 @@
     [status-im.multiaccounts.biometric.core :as biometric]
     [status-im.multiaccounts.core :as multiaccounts]
     [native-module.core :as native-module]
-    [status-im.node.core :as node]
     [status-im.notifications.core :as notifications]
     [status-im.popover.core :as popover]
     [status-im.signing.eip1559 :as eip1559]
@@ -58,7 +56,7 @@
 
 (re-frame/reg-fx
  ::login
- (fn [[key-uid account-data hashed-password]]
+ (fn [[key-uid _ hashed-password]]
    (native-module/login-2 {:keyUid                      key-uid
                            :password                    hashed-password
                            :openseaAPIKey               config/opensea-api-key

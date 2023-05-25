@@ -89,7 +89,7 @@
   (clear-web-data)
   (init-keystore
    keyUid
-   #(.login2 ^js (status) request)))
+   #(.login2 ^js (status) (types/clj->json request))))
 
 (defn create-account-and-login
   [request]
