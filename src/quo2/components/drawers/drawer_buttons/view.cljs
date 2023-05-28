@@ -41,21 +41,30 @@
 
 (defn card
   [{:keys [on-press style heading gap accessibility-label top?]} children]
-  [rn/touchable-highlight
-   {:accessibility-label accessibility-label
-    :on-press            on-press
-    :border-radius       20
-    :style               style
-    :underlay-color      (:background-color style)}
-   [rn/view
-    [text/text
-     {:size   :heading-1
-      :style  (style/heading-text gap)
-      :weight :semi-bold}
-     heading]
-    (if top?
-      [render-children-top children]
-      [render-children-bottom children])]])
+  [rn/view
+   {:style style}
+   [blur/view
+    {:style         {:flex 1}
+     :blur-amount   20
+     :blur-radius   20
+     :blur-type     :dark
+     :overlay-color :transparent}]
+
+   [rn/touchable-highlight
+    {:accessibility-label accessibility-label
+     :on-press            on-press
+     :border-radius       20
+     :style               style/blurred-button
+     :underlay-color      (:background-color style)}
+    [rn/view
+     [text/text
+      {:size   :heading-1
+       :style  (style/heading-text gap)
+       :weight :semi-bold}
+      heading]
+     (if top?
+       [render-children-top children]
+       [render-children-bottom children])]]])
 
 (defn view
   "[view opts]
@@ -71,9 +80,8 @@
     child-2           string, keyword or hiccup
    "
   [{:keys [container-style top-card bottom-card]} child-1 child-2]
-  [blur/ios-view
-   {:style       (merge container-style style/outer-container)
-    :blur-radius 20}
+  [rn/view
+   {:style (merge container-style style/outer-container)}
    [card
     (merge {:gap   4
             :top?  true

@@ -1,20 +1,31 @@
 (ns quo2.components.drawers.drawer-buttons.style
-  (:require [quo2.foundations.colors :as colors]
-            [react-native.platform :as platform]))
+  (:require [quo2.foundations.colors :as colors]))
 
 (def outer-container
   {:height        216
+   :opacity       1
    :border-radius 20})
+
+(def blurred-button
+  {:position                :absolute
+   :top                     0
+   :left                    0
+   :right                   0
+   :bottom                  0
+   :opacity                 1
+   :flex                    1
+   :z-index                 1
+   :border-top-left-radius  20
+   :border-top-right-radius 20
+   :background-color        :transparent
+   :padding-vertical        12
+   :padding-horizontal      20})
 
 (def top-card
   {:flex                    1
-   :padding-vertical        12
-   :padding-horizontal      20
    :border-top-left-radius  20
    :border-top-right-radius 20
-   :background-color        (if platform/ios?
-                              colors/neutral-80-opa-80-blur
-                              colors/neutral-80)})
+   :overflow                :hidden})
 
 (def bottom-card
   {:position                :absolute
@@ -22,11 +33,9 @@
    :left                    0
    :right                   0
    :bottom                  0
-   :padding-vertical        12
-   :padding-horizontal      20
    :border-top-left-radius  20
    :border-top-right-radius 20
-   :background-color        colors/white-opa-5})
+   :overflow                :hidden})
 
 (def bottom-container
   {:flex-direction  :row
