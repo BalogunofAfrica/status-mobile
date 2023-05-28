@@ -46,9 +46,7 @@
                :right    0})}
      [quo/floating-shell-button
       (merge {:jump-to
-              {:on-press (fn []
-                           (rf/dispatch [:chat/close true])
-                           (rf/dispatch [:shell/navigate-to-jump-to]))
+              {:on-press #(rf/dispatch [:shell/navigate-to-jump-to])
                :label    (i18n/label :t/jump-to)
                :style    {:align-self :center}}}
              (when @messages.list/show-floating-scroll-down-button
